@@ -6,6 +6,6 @@ namespace Delivery_Tracking.Core.Contracts
 {
     public interface IDataInitializer
     {
-        Task InializeAdminAndRolesAsync();
+        Task InitializeAdminAndRolesAsync();
     }
 }

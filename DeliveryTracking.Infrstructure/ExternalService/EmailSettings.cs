@@ -6,10 +6,10 @@ namespace DeliveryTracking.Infrstructure.ExtenalService
 {
     public class EmailSettings
     {
-        public string Email { get; set; }
-        public string DisplayName { get; set; }
-        public string Password { get; set; }
-        public string Host { get; set; }
+        public string Email { get; set; } = null!;
+        public string DisplayName { get; set; } = null!;
+        public string Password { get; set; } = null!;
+        public string Host { get; set; } = null!;
         public int Port { get; set; }
 
     }

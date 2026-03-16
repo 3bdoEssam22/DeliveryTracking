@@ -8,7 +8,7 @@ namespace DeliveryTracking.Infrstructure.Data.DataSeed
     public class DataInitializer(UserManager<DeliveryTrackingUser> _userManager, RoleManager<IdentityRole> _roleManager, IConfiguration _configuration)
         : IDataInitializer
     {
-        public async Task InializeAdminAndRolesAsync()
+        public async Task InitializeAdminAndRolesAsync()
         {
             // 1. Create roles if they don't exist
             string[] roles = ["Admin", "Driver", "Customer"];

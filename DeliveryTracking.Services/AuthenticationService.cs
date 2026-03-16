@@ -19,13 +19,6 @@ namespace DeliveryTracking.Services
         {
             var genericResponse = new GenericResponse<bool>();
 
-            if (registerData is null)
-            {
-                genericResponse.StatusCode = StatusCodes.Status400BadRequest;
-                genericResponse.Message = "Fill the data";
-                return genericResponse;
-            }
-
             var emailExists = await _userManager.FindByEmailAsync(registerData.Email);
             if (emailExists is not null)
             {
@@ -71,13 +64,6 @@ namespace DeliveryTracking.Services
         public async Task<GenericResponse<UserDTO>> LoginAsync(LoginDTO loginData)
         {
             var genericResponse = new GenericResponse<UserDTO>();
-
-            if (loginData is null)
-            {
-                genericResponse.StatusCode = StatusCodes.Status400BadRequest;
-                genericResponse.Message = "Fill the data.";
-                return genericResponse;
-            }
 
             var user = await _userManager.FindByEmailAsync(loginData.Email);
 
@@ -138,13 +124,6 @@ namespace DeliveryTracking.Services
         {
             var genericResponse = new GenericResponse<bool>();
 
-            if (registerData is null)
-            {
-                genericResponse.StatusCode = StatusCodes.Status400BadRequest;
-                genericResponse.Message = "Fill the data";
-                return genericResponse;
-            }
-
             var emailExists = await _userManager.FindByEmailAsync(registerData.Email);
             if (emailExists is not null)
             {
@@ -194,13 +173,6 @@ namespace DeliveryTracking.Services
         public async Task<GenericResponse<bool>> ChangePasswordAsync(string email, ChangePasswordDTO changePasswordData)
         {
             var genericResponse = new GenericResponse<bool>();
-
-            if (changePasswordData is null)
-            {
-                genericResponse.StatusCode = StatusCodes.Status400BadRequest;
-                genericResponse.Message = "Fill the data";
-                return genericResponse;
-            }
 
             var user = await _userManager.FindByEmailAsync(email);
             if (user is null)

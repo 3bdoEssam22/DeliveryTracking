@@ -20,7 +20,7 @@ namespace DeliveryTracking.Api.Extensions
         {
             await using var scope = app.Services.CreateAsyncScope();
             var dataInitializer = scope.ServiceProvider.GetRequiredService<IDataInitializer>();
-            await dataInitializer.InializeAdminAndRolesAsync();
+            await dataInitializer.InitializeAdminAndRolesAsync();
             return app;
         }
 

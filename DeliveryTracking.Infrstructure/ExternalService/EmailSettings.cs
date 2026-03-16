@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DeliveryTracking.Infrstructure.ExtenalService
+﻿namespace DeliveryTracking.Infrstructure.ExternalService
 {
     public class EmailSettings
     {

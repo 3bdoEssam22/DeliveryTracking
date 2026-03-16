@@ -3,7 +3,7 @@ using Delivery_Tracking.Core.Entities.SecurityModule;
 using DeliveryTracking.Api.Extensions;
 using DeliveryTracking.Infrstructure.Data.Contexts;
 using DeliveryTracking.Infrstructure.Data.DataSeed;
-using DeliveryTracking.Infrstructure.ExtenalService;
+using DeliveryTracking.Infrstructure.ExternalService;
 using DeliveryTracking.Infrstructure.Repositories;
 using DeliveryTracking.Services;
 using DeliveryTracking.Services.Abstraction;

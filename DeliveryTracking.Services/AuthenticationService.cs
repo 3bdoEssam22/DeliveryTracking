@@ -98,7 +98,7 @@ namespace DeliveryTracking.Services
             }
             else
             {
-                var days = int.Parse(_configuration["JwtOptions:ExpiryDays"]!);
+                var days = int.Parse(_configuration["JwtOptions:ExpiryDays"] ?? "30");
                 await _userManager.ResetAccessFailedCountAsync(user);
                 var roles = await _userManager.GetRolesAsync(user);
                 var userClaims = await _userManager.GetClaimsAsync(user);

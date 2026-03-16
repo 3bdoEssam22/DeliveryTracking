@@ -2,10 +2,6 @@
 using Delivery_Tracking.Core.Entities;
 using DeliveryTracking.Infrstructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
 
 namespace DeliveryTracking.Infrstructure.Repositories
 {

@@ -5,7 +5,7 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 using Shared.Messages;
 
-namespace DeliveryTracking.Infrstructure.ExtenalService
+namespace DeliveryTracking.Infrstructure.ExternalService
 {
     public class EmailService(IOptions<EmailSettings> _options) : IEmailService
     {

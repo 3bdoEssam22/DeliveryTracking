@@ -7,7 +7,7 @@ namespace DeliveryTracking.Api.Controllers
     [ApiController]
     public class BaseApiController : ControllerBase
     {
-        protected ActionResult HandleRespone<T>(GenericResponse<T> response)
+        protected ActionResult HandleResponse<T>(GenericResponse<T> response)
         {
             if (response is null)
                 return StatusCode(StatusCodes.Status500InternalServerError);

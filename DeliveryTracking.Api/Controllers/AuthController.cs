@@ -16,7 +16,7 @@ namespace DeliveryTracking.Api.Controllers
         public async Task<ActionResult<GenericResponse<bool>>> RegisterAsync([FromBody] RegisterDTO registerData)
         {
             var result = await _authenticationService.RegisterAsync(registerData);
-            return HandleRespone(result);
+            return HandleResponse(result);
         }
 
         //Post BaseUrl/api/auth/login
@@ -24,7 +24,7 @@ namespace DeliveryTracking.Api.Controllers
         public async Task<ActionResult<GenericResponse<UserDTO>>> LoginAsync([FromBody] LoginDTO loginData)
         {
             var result = await _authenticationService.LoginAsync(loginData);
-            return HandleRespone(result);
+            return HandleResponse(result);
         }
 
         //post BaseUrl/api/auth/register-driver
@@ -33,7 +33,7 @@ namespace DeliveryTracking.Api.Controllers
         public async Task<ActionResult<GenericResponse<bool>>> RegisterDriverAsync([FromBody] RegisterDriverDTO registerData)
         {
             var result = await _authenticationService.RegisterDriverAsync(registerData);
-            return HandleRespone(result);
+            return HandleResponse(result);
         }
 
         //post BaseUrl/api/auth/change-password
@@ -45,7 +45,7 @@ namespace DeliveryTracking.Api.Controllers
             if (string.IsNullOrEmpty(email)) return Unauthorized();
 
             var result = await _authenticationService.ChangePasswordAsync(email, changePasswordData);
-            return HandleRespone(result);
+            return HandleResponse(result);
         }
 
     }

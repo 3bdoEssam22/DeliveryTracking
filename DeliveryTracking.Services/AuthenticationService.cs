@@ -120,13 +120,14 @@ namespace DeliveryTracking.Services
 
                 genericResponse.StatusCode = StatusCodes.Status200OK;
                 genericResponse.Message = "Login Successfully.";
+                var expiresAt = DateTime.UtcNow.AddDays(days);
                 genericResponse.Data = new UserDTO()
                 {
                     Email = loginData.Email,
                     FullName = user.FullName,
-                    Token = CreateTokenAsync(user, days, roles, userClaims),
+                    Token = CreateToken(user, expiresAt, roles),
                     Role = roles.FirstOrDefault() ?? string.Empty,
-                    ExpiresAt = DateTime.UtcNow.AddDays(days),
+                    ExpiresAt = expiresAt,
                     MustChangePassword = mustChangePassword
                 };
             }
@@ -160,7 +161,7 @@ namespace DeliveryTracking.Services
                 IsActive = true,
                 CreatedAt = DateTime.UtcNow,
                 UserName = registerData.Email
-            };  
+            };
 
             var password = $"Dr!v3r{Guid.NewGuid().ToString()[..8].ToUpper()}";
             var result = await _userManager.CreateAsync(user, password);
@@ -184,8 +185,7 @@ namespace DeliveryTracking.Services
             else
             {
                 genericResponse.StatusCode = StatusCodes.Status400BadRequest;
-                genericResponse.Message = "Driver is not created successfully.";
-
+                genericResponse.Message = string.Join(" | ", result.Errors.Select(e => e.Description));
             }
             return genericResponse;
 
@@ -207,6 +207,13 @@ namespace DeliveryTracking.Services
             {
                 genericResponse.StatusCode = StatusCodes.Status404NotFound;
                 genericResponse.Message = "User not found";
+                return genericResponse;
+            }
+
+            if (!user.IsActive)
+            {
+                genericResponse.StatusCode = StatusCodes.Status403Forbidden;
+                genericResponse.Message = "Account has been Deactivated.";
                 return genericResponse;
             }
 
@@ -234,7 +241,7 @@ namespace DeliveryTracking.Services
         }
 
         #region Token
-        private string CreateTokenAsync(DeliveryTrackingUser user, int durationInDays, IList<string> roles, IList<Claim> userClaims)
+        private string CreateToken(DeliveryTrackingUser user, DateTime duration, IList<string> roles)
         {
             var claims = new List<Claim>()
             {
@@ -246,12 +253,6 @@ namespace DeliveryTracking.Services
             foreach (var role in roles)
                 claims.Add(new(ClaimTypes.Role, role));
 
-            if (userClaims != null)
-            {
-                foreach (var claim in userClaims)
-                    claims.Add(claim);
-            }
-
             var SecretKey = _configuration["JwtOptions:SecretKey"];
 
             var Key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SecretKey!));
@@ -262,7 +263,7 @@ namespace DeliveryTracking.Services
                 issuer: _configuration["JwtOptions:Issuer"],
                 audience: _configuration["JwtOptions:Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddDays(durationInDays),
+                expires: duration,
                 signingCredentials: cred
                 );
 

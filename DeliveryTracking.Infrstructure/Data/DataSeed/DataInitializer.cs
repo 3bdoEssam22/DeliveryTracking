@@ -1,10 +1,11 @@
 ﻿using Delivery_Tracking.Core.Contracts;
 using Delivery_Tracking.Core.Entities.SecurityModule;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 namespace DeliveryTracking.Infrstructure.Data.DataSeed
 {
-    public class DataInitializer(UserManager<DeliveryTrackingUser> _userManager, RoleManager<IdentityRole> _roleManager)
+    public class DataInitializer(UserManager<DeliveryTrackingUser> _userManager, RoleManager<IdentityRole> _roleManager, IConfiguration _configuration)
         : IDataInitializer
     {
         public async Task InializeAdminAndRolesAsync()
@@ -16,7 +17,8 @@ namespace DeliveryTracking.Infrstructure.Data.DataSeed
                     await _roleManager.CreateAsync(new IdentityRole(role));
 
             // 2. Create default Admin if no admin exists
-            var adminEmail = "abdulrahman.e.f22@gmail.com";
+            var adminEmail = _configuration["AdminSettings:Email"] ?? "admin@deliverytracking.com";
+            var adminPassword = _configuration["AdminSettings:Password"] ?? "P@ssw0rd123";
             if (await _userManager.FindByEmailAsync(adminEmail) is null)
             {
                 var admin = new DeliveryTrackingUser
@@ -27,7 +29,7 @@ namespace DeliveryTracking.Infrstructure.Data.DataSeed
                     CreatedAt = DateTime.UtcNow,
                     IsActive = true,
                 };
-                await _userManager.CreateAsync(admin, "P@ssw0rd");
+                await _userManager.CreateAsync(admin, adminPassword);
                 await _userManager.AddToRoleAsync(admin, "Admin");
             }
         }

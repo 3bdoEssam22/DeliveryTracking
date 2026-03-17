@@ -22,7 +22,7 @@ namespace DeliveryTracking.Infrastructure.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Delivery_Tracking.Core.Entities.SecurityModule.DeliveryTrackingUser", b =>
+            modelBuilder.Entity("DeliveryTracking.Core.Entities.SecurityModule.DeliveryTrackingUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -245,7 +245,7 @@ namespace DeliveryTracking.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Delivery_Tracking.Core.Entities.SecurityModule.DeliveryTrackingUser", null)
+                    b.HasOne("DeliveryTracking.Core.Entities.SecurityModule.DeliveryTrackingUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -254,7 +254,7 @@ namespace DeliveryTracking.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Delivery_Tracking.Core.Entities.SecurityModule.DeliveryTrackingUser", null)
+                    b.HasOne("DeliveryTracking.Core.Entities.SecurityModule.DeliveryTrackingUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -269,7 +269,7 @@ namespace DeliveryTracking.Infrastructure.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Delivery_Tracking.Core.Entities.SecurityModule.DeliveryTrackingUser", null)
+                    b.HasOne("DeliveryTracking.Core.Entities.SecurityModule.DeliveryTrackingUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -278,7 +278,7 @@ namespace DeliveryTracking.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Delivery_Tracking.Core.Entities.SecurityModule.DeliveryTrackingUser", null)
+                    b.HasOne("DeliveryTracking.Core.Entities.SecurityModule.DeliveryTrackingUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

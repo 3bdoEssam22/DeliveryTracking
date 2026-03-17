@@ -7,8 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Delivery Tracking.Core\DeliveryTracking.Core.csproj" />
-    <ProjectReference Include="..\DeliveryTracking.Service.Abstraction\DeliveryTracking.Services.Abstraction.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DeliveryTracking.Core\DeliveryTracking.Core.csproj" />
+    <ProjectReference Include="..\DeliveryTracking.Services.Abstraction\DeliveryTracking.Services.Abstraction.csproj" />
   </ItemGroup>
 
 </Project>

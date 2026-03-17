@@ -1,8 +1,8 @@
 <Solution>
-  <Project Path="Delivery Tracking.Core/DeliveryTracking.Core.csproj" />
+  <Project Path="DeliveryTracking.Core/DeliveryTracking.Core.csproj" />
   <Project Path="DeliveryTracking.Api/DeliveryTracking.Api.csproj" />
-  <Project Path="DeliveryTracking.Infrstructure/DeliveryTracking.Infrstructure.csproj" />
-  <Project Path="DeliveryTracking.Service.Abstraction/DeliveryTracking.Services.Abstraction.csproj" />
+  <Project Path="DeliveryTracking.Infrastructure/DeliveryTracking.Infrastructure.csproj" />
+  <Project Path="DeliveryTracking.Services.Abstraction/DeliveryTracking.Services.Abstraction.csproj" />
   <Project Path="DeliveryTracking.Services/DeliveryTracking.Services.csproj" />
   <Project Path="Shared/Shared.csproj" />
 </Solution>

@@ -1,18 +1,28 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>9274ba54-6aef-4551-9d4e-c644658ac5ce</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DeliveryTracking.Infrstructure\DeliveryTracking.Infrstructure.csproj" />
-    <ProjectReference Include="..\DeliveryTracking.Service.Abstraction\DeliveryTracking.Services.Abstraction.csproj" />
+    <ProjectReference Include="..\DeliveryTracking.Infrastructure\DeliveryTracking.Infrastructure.csproj" />
+    <ProjectReference Include="..\DeliveryTracking.Services.Abstraction\DeliveryTracking.Services.Abstraction.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

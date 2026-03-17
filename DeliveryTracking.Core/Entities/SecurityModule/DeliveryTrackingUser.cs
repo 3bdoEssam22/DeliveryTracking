@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace Delivery_Tracking.Core.Entities.SecurityModule
+namespace DeliveryTracking.Core.Entities.SecurityModule
 {
     public class DeliveryTrackingUser : IdentityUser
     {

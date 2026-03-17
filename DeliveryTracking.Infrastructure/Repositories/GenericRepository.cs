@@ -1,9 +1,9 @@
-﻿using Delivery_Tracking.Core.Contracts;
-using Delivery_Tracking.Core.Entities;
-using DeliveryTracking.Infrstructure.Data.Contexts;
+﻿using DeliveryTracking.Core.Contracts;
+using DeliveryTracking.Core.Entities;
+using DeliveryTracking.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace DeliveryTracking.Infrstructure.Repositories
+namespace DeliveryTracking.Infrastructure.Repositories
 {
     public class GenericRepository<TEntity, TKey>(DeliveryTrackingDbContext _dbContext) : IGenericRepository<TEntity, TKey> where TEntity : BaseEntity<TKey>
     {

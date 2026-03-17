@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 
-namespace Delivery_Tracking.Core.Contracts
+namespace DeliveryTracking.Core.Contracts
 {
     public interface IGenericRepository<TEntity, TKey>
     {

@@ -1,11 +1,11 @@
-﻿using Delivery_Tracking.Core.Contracts;
-using Delivery_Tracking.Core.Entities;
-using DeliveryTracking.Infrstructure.Data.Contexts;
+﻿using DeliveryTracking.Core.Contracts;
+using DeliveryTracking.Core.Entities;
+using DeliveryTracking.Infrastructure.Data.Contexts;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeliveryTracking.Infrstructure.Repositories
+namespace DeliveryTracking.Infrastructure.Repositories
 {
     public class UnitOfWork(DeliveryTrackingDbContext _dbContext) : IUnitOfWork
     {

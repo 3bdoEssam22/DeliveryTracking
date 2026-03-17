@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DeliveryTracking.Infrstructure\DeliveryTracking.Infrastructure.csproj" />
-    <ProjectReference Include="..\DeliveryTracking.Service.Abstraction\DeliveryTracking.Services.Abstraction.csproj" />
+    <ProjectReference Include="..\DeliveryTracking.Infrastructure\DeliveryTracking.Infrastructure.csproj" />
+    <ProjectReference Include="..\DeliveryTracking.Services.Abstraction\DeliveryTracking.Services.Abstraction.csproj" />
   </ItemGroup>
 
   <ItemGroup>

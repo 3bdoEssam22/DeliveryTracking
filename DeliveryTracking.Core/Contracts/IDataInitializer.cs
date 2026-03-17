@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Delivery_Tracking.Core.Contracts
+namespace DeliveryTracking.Core.Contracts
 {
     public interface IDataInitializer
     {

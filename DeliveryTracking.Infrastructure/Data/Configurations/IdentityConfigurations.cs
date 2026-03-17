@@ -1,11 +1,11 @@
-﻿using Delivery_Tracking.Core.Entities.SecurityModule;
+﻿using DeliveryTracking.Core.Entities.SecurityModule;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeliveryTracking.Infrstructure.Data.Configurations
+namespace DeliveryTracking.Infrastructure.Data.Configurations
 {
     public class IdentityConfigurations : IEntityTypeConfiguration<DeliveryTrackingUser>
     {

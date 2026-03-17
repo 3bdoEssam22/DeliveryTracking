@@ -1,4 +1,4 @@
-﻿namespace DeliveryTracking.Infrstructure.ExternalService
+﻿namespace DeliveryTracking.Infrastructure.ExternalService
 {
     public class EmailSettings
     {

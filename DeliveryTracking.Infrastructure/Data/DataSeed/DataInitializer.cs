@@ -1,9 +1,9 @@
-﻿using Delivery_Tracking.Core.Contracts;
-using Delivery_Tracking.Core.Entities.SecurityModule;
+﻿using DeliveryTracking.Core.Contracts;
+using DeliveryTracking.Core.Entities.SecurityModule;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 
-namespace DeliveryTracking.Infrstructure.Data.DataSeed
+namespace DeliveryTracking.Infrastructure.Data.DataSeed
 {
     public class DataInitializer(UserManager<DeliveryTrackingUser> _userManager, RoleManager<IdentityRole> _roleManager, IConfiguration _configuration)
         : IDataInitializer

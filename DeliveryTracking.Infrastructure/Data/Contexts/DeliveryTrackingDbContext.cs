@@ -1,10 +1,10 @@
-﻿using Delivery_Tracking.Core.Entities.SecurityModule;
+﻿using DeliveryTracking.Core.Entities.SecurityModule;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace DeliveryTracking.Infrstructure.Data.Contexts
+namespace DeliveryTracking.Infrastructure.Data.Contexts
 {
     public class DeliveryTrackingDbContext(DbContextOptions<DeliveryTrackingDbContext> options) :
         IdentityDbContext<DeliveryTrackingUser, IdentityRole, string>(options)

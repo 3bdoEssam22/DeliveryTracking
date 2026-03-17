@@ -1,5 +1,5 @@
-﻿using Delivery_Tracking.Core.Contracts;
-using DeliveryTracking.Infrstructure.Data.Contexts;
+﻿using DeliveryTracking.Core.Contracts;
+using DeliveryTracking.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeliveryTracking.Api.Extensions

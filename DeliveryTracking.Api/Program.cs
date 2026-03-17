@@ -1,10 +1,10 @@
-using Delivery_Tracking.Core.Contracts;
-using Delivery_Tracking.Core.Entities.SecurityModule;
+using DeliveryTracking.Core.Contracts;
+using DeliveryTracking.Core.Entities.SecurityModule;
 using DeliveryTracking.Api.Extensions;
-using DeliveryTracking.Infrstructure.Data.Contexts;
-using DeliveryTracking.Infrstructure.Data.DataSeed;
-using DeliveryTracking.Infrstructure.ExternalService;
-using DeliveryTracking.Infrstructure.Repositories;
+using DeliveryTracking.Infrastructure.Data.Contexts;
+using DeliveryTracking.Infrastructure.Data.DataSeed;
+using DeliveryTracking.Infrastructure.ExternalService;
+using DeliveryTracking.Infrastructure.Repositories;
 using DeliveryTracking.Services;
 using DeliveryTracking.Services.Abstraction;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

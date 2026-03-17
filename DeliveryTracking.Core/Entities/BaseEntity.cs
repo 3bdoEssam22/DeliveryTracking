@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Delivery_Tracking.Core.Entities
+namespace DeliveryTracking.Core.Entities
 {
     public class BaseEntity<TKey>
     {

@@ -1,4 +1,4 @@
-﻿using Delivery_Tracking.Core.Entities.SecurityModule;
+﻿using DeliveryTracking.Core.Entities.SecurityModule;
 using DeliveryTracking.Services.Abstraction;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;

@@ -1,13 +1,14 @@
-﻿namespace DeliveryTracking.Core.Entities.OrderModule
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Shared.DataTransferObjects.OrderDTOs
 {
-    public class OrderItem : BaseEntity<Guid>
+    public class OrderItemResponseDTO
     {
-        public Guid OrderId { get; set; }
         public string ProductName { get; set; } = null!;
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
-
-        public Order Order { get; set; } = null!;
     }
 }

@@ -1,4 +1,5 @@
-﻿using DeliveryTracking.Core.Entities.SecurityModule;
+﻿using DeliveryTracking.Core.Contracts;
+using DeliveryTracking.Core.Entities.SecurityModule;
 using DeliveryTracking.Services.Abstraction;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -32,7 +33,6 @@ namespace DeliveryTracking.Services
                 FullName = registerData.FullName,
                 PhoneNumber = registerData.PhoneNumber,
                 IsActive = true,
-                CreatedAt = DateTime.UtcNow,
                 UserName = registerData.Email
             };
 
@@ -47,11 +47,11 @@ namespace DeliveryTracking.Services
                     Body = "A welcome message from DeliveryTracking Support, Login and enjoy our Services."
                 };
 
-                await _emailService.SendEmailAsync(email);
                 await _userManager.AddToRoleAsync(user, "Customer");
                 genericResponse.StatusCode = StatusCodes.Status200OK;
                 genericResponse.Message = "Account Created successfully";
                 genericResponse.Data = true;
+                await _emailService.SendEmailAsync(email);
             }
             else
             {
@@ -138,7 +138,6 @@ namespace DeliveryTracking.Services
                 FullName = registerData.FullName,
                 PhoneNumber = registerData.PhoneNumber,
                 IsActive = true,
-                CreatedAt = DateTime.UtcNow,
                 UserName = registerData.Email
             };
 
@@ -154,12 +153,12 @@ namespace DeliveryTracking.Services
                     Body = $"To login: Use your email, Your temp password is: ({password})"
                 };
 
-                await _emailService.SendEmailAsync(email);
                 await _userManager.AddToRoleAsync(user, "Driver");
                 await _userManager.AddClaimAsync(user, new Claim("MustChangePassword", "true"));
                 genericResponse.StatusCode = StatusCodes.Status200OK;
                 genericResponse.Message = "Driver is created successfully.";
                 genericResponse.Data = true;
+                await _emailService.SendEmailAsync(email);
             }
             else
             {
@@ -205,9 +204,17 @@ namespace DeliveryTracking.Services
                 await _userManager.RemoveClaimAsync(user, mustChangeClaim);
             }
 
+            var emailToSed = new Email()
+            {
+                To = email,
+                Subject = "DeliveryTracking - Password Changed",
+                Body = "Your password has been changed successfully."
+            };
+
             genericResponse.StatusCode = StatusCodes.Status200OK;
             genericResponse.Message = "Password changed successfully.";
             genericResponse.Data = true;
+            await _emailService.SendEmailAsync(emailToSed);
 
             return genericResponse;
         }

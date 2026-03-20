@@ -13,7 +13,7 @@ namespace DeliveryTracking.Infrastructure.Data.Configurations
         {
             builder.ToTable("Users");
             builder.Property(p => p.FullName).IsRequired().HasMaxLength(100);
-            builder.Property(p => p.CreatedAt).IsRequired();
+            builder.Property(p => p.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
         }
     }
 }

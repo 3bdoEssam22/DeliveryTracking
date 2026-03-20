@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Shared.DataTransferObjects.OrderDTOs.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shared.DataTransferObjects.OrderDTOs
 {

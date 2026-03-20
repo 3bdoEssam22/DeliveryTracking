@@ -1,4 +1,4 @@
-﻿using DeliveryTracking.Services.Abstraction;
+﻿using DeliveryTracking.Core.Contracts;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.Extensions.Options;

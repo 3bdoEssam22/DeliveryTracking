@@ -1,4 +1,4 @@
-﻿namespace Shared.DataTransferObjects.OrderDTOs
+﻿namespace Shared.DataTransferObjects.OrderDTOs.Enums
 {
     public enum OrderStatus
     {

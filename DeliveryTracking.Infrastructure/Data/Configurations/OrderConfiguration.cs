@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DeliveryTracking.Infrastructure.Data.Configurations
 {
-    internal class OrderConfiguration:BaseConfiguration<Order,Guid>
+    internal class OrderConfiguration : BaseConfiguration<Order, Guid>
     {
         public override void Configure(EntityTypeBuilder<Order> builder)
         {
@@ -29,6 +29,10 @@ namespace DeliveryTracking.Infrastructure.Data.Configurations
             builder.Property(p => p.Status)
                 .IsRequired()
                 .HasConversion<string>();
+
+            builder.Property(p => p.Notes)
+                .HasMaxLength(300);
+
 
             // Customer — restrict delete (cannot delete a user who has orders)
             builder.HasOne(o => o.Customer)

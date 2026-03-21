@@ -15,12 +15,28 @@ namespace DeliveryTracking.Infrastructure.Repositories
 
         public async Task<IEnumerable<TEntity>> GetAllAsync() => await DbContext.Set<TEntity>().ToListAsync();
 
-
-        public async Task<TEntity?> GetByIdAsync(TKey id) => await DbContext.Set<TEntity>().FindAsync(id);
-
         public async Task<IEnumerable<TEntity>> GetAllAsync(List<Expression<Func<TEntity, object>>>? includes = null)
         {
             var query = DbContext.Set<TEntity>().AsQueryable();
+            if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+            return await query.ToListAsync();
+        }
+
+
+        public async Task<TEntity?> GetByIdAsync(TKey id) => await DbContext.Set<TEntity>().FindAsync(id);
+
+
+        public async Task<IEnumerable<TEntity>> GetAllWhereAsync(
+            Expression<Func<TEntity, bool>> criteria,
+            List<Expression<Func<TEntity, object>>>? includes = null)
+        {
+            var query = DbContext.Set<TEntity>().Where(criteria);
             if (includes != null)
             {
                 foreach (var include in includes)

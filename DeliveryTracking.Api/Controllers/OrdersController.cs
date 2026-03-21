@@ -18,8 +18,8 @@ namespace DeliveryTracking.Api.Controllers
         private string UserRole =>
             User.FindFirstValue(ClaimTypes.Role) ?? string.Empty;
 
-        // POST api/orders
-        [HttpPost]
+        // POST api/Orders/Create
+        [HttpPost("create")]
         [Authorize(Roles = "Customer")]
         public async Task<ActionResult<GenericResponse<OrderResponseDTO>>> CreateOrderAsync([FromBody] CreateOrderDTO dto)
         {
@@ -74,7 +74,7 @@ namespace DeliveryTracking.Api.Controllers
 
         // PUT api/orders/{id}/cancel
         [HttpPut("{id:guid}/cancel")]
-        [Authorize]
+        [Authorize(Roles = "Admin,Customer")]
         public async Task<ActionResult<GenericResponse<bool>>> CancelOrderAsync(Guid id, [FromBody] CancelOrderDTO dto)
         {
             var result = await _orderService.CancelOrderAsync(UserId, UserRole, id, dto);

@@ -88,6 +88,10 @@ namespace DeliveryTracking.Api
                   {
                       OnMessageReceived = context =>
                       {
+                          var path = context.HttpContext.Request.Path;
+                          if (!path.StartsWithSegments("/hubs"))
+                              return Task.CompletedTask;
+
                           var token = context.Request.Query["access_token"];
                           if (!string.IsNullOrEmpty(token))
                               context.Token = token;
@@ -113,6 +117,7 @@ namespace DeliveryTracking.Api
 
             builder.Services.AddAutoMapper(p => p.AddProfile<OrderMappingProfile>(), typeof(ServicesAssemblyReference).Assembly);
 
+            builder.Services.AddAuthorization();
             #endregion
 
             var app = builder.Build();

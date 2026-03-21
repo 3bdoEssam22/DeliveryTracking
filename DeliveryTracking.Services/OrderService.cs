@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Shared.DataTransferObjects.OrderDTOs;
 using Shared.Messages;
 using Shared.Responses;
+using System.Linq.Expressions;
 namespace DeliveryTracking.Services
 {
     public class OrderService(
@@ -59,6 +60,16 @@ namespace DeliveryTracking.Services
             await _unitOfWork.GetRepository<Order, Guid>().AddAsync(order);
             await _unitOfWork.SaveChangesAsync();
 
+            var savedOrder = await _unitOfWork.GetRepository<Order, Guid>()
+                                    .GetByIdAsync(order.Id, [o => o.Customer, o => o.Driver!, o => o.Items]);
+
+            if (savedOrder is null)
+            {
+                response.StatusCode = StatusCodes.Status500InternalServerError;
+                response.Message = "Order was created, but failed to load the created order.";
+                return response;
+            }
+
             // Notify all admins
             var admins = await _userManager.GetUsersInRoleAsync("Admin");
             foreach (var admin in admins)
@@ -66,7 +77,7 @@ namespace DeliveryTracking.Services
 
             response.StatusCode = StatusCodes.Status201Created;
             response.Message = "Order created successfully.";
-            response.Data = _mapper.Map<OrderResponseDTO>(order);
+            response.Data = _mapper.Map<OrderResponseDTO>(savedOrder);
             return response;
         }
 
@@ -75,7 +86,8 @@ namespace DeliveryTracking.Services
         {
             var response = new GenericResponse<OrderResponseDTO>();
 
-            var order = await _unitOfWork.GetRepository<Order, Guid>().GetByIdAsync(orderId);
+            var order = await _unitOfWork.GetRepository<Order, Guid>()
+                .GetByIdAsync(orderId, [o => o.Customer, o => o.Driver!, o => o.Items]);
             if (order is null)
             {
                 response.StatusCode = StatusCodes.Status404NotFound;
@@ -108,13 +120,14 @@ namespace DeliveryTracking.Services
         {
             var response = new GenericResponse<List<OrderResponseDTO>>();
 
-            var all = await _unitOfWork.GetRepository<Order, Guid>().GetAllAsync();
+            Expression<Func<Order, bool>> criteria = role == "Driver"
+                ? o => o.DriverId == userId
+                : o => o.CustomerId == userId;
 
-            var filtered = role == "Driver"
-                ? all.Where(o => o.DriverId == userId)
-                : all.Where(o => o.CustomerId == userId);
+            var orders = await _unitOfWork.GetRepository<Order, Guid>()
+                .GetAllWhereAsync(criteria, [o => o.Customer, o => o.Driver!, o => o.Items]);
 
-            var ordered = filtered.OrderByDescending(o => o.CreatedAt).ToList();
+            var ordered = orders.OrderByDescending(o => o.CreatedAt).ToList();
 
             response.StatusCode = StatusCodes.Status200OK;
             response.Message = "Orders retrieved successfully.";
@@ -127,9 +140,11 @@ namespace DeliveryTracking.Services
         {
             var response = new GenericResponse<List<OrderResponseDTO>>();
 
-            var orders = (await _unitOfWork.GetRepository<Order, Guid>().GetAllAsync())
-                .OrderByDescending(o => o.CreatedAt)
-                .ToList();
+            var orders = (await _unitOfWork.GetRepository<Order, Guid>()
+                            .GetAllAsync([o => o.Customer, o => o.Driver!, o => o.Items]))
+                            .OrderByDescending(o => o.CreatedAt)
+                            .ToList();
+
 
             response.StatusCode = StatusCodes.Status200OK;
             response.Message = "Orders retrieved successfully.";
@@ -172,11 +187,13 @@ namespace DeliveryTracking.Services
                 return response;
             }
 
-            var allOrders = await _unitOfWork.GetRepository<Order, Guid>().GetAllAsync();
-            var isBusy = allOrders.Any(o =>
-                o.DriverId == dto.DriverId &&
-                o.Status != OrderStatus.Delivered &&
-                o.Status != OrderStatus.Cancelled);
+            var activeDriverOrders = await _unitOfWork.GetRepository<Order, Guid>()
+                .GetAllWhereAsync(o =>
+                    o.DriverId == dto.DriverId &&
+                    o.Status != OrderStatus.Delivered &&
+                    o.Status != OrderStatus.Cancelled);
+
+            var isBusy = activeDriverOrders.Any();
 
             if (isBusy)
             {

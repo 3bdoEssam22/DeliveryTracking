@@ -11,6 +11,10 @@ namespace DeliveryTracking.Core.Contracts
         Task<IEnumerable<TEntity>> GetAllAsync(
             List<Expression<Func<TEntity, object>>>? includes = null
         );
+        Task<IEnumerable<TEntity>> GetAllWhereAsync(
+            Expression<Func<TEntity, bool>> criteria,
+            List<Expression<Func<TEntity, object>>>? includes = null
+        );
 
         Task<TEntity?> GetByIdAsync(TKey id);
         Task<TEntity?> GetByIdAsync(TKey id,

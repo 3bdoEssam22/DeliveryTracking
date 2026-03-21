@@ -18,8 +18,8 @@ namespace DeliveryTracking.Api.Controllers
         private string UserRole =>
             User.FindFirstValue(ClaimTypes.Role) ?? string.Empty;
 
-        // POST api/Orders/Create
-        [HttpPost("create")]
+        // POST api/orders
+        [HttpPost]
         [Authorize(Roles = "Customer")]
         public async Task<ActionResult<GenericResponse<OrderResponseDTO>>> CreateOrderAsync([FromBody] CreateOrderDTO dto)
         {

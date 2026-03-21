@@ -5,6 +5,7 @@ using DeliveryTracking.Infrastructure.Data.Contexts;
 using DeliveryTracking.Infrastructure.Data.DataSeed;
 using DeliveryTracking.Infrastructure.ExternalService;
 using DeliveryTracking.Infrastructure.Hubs;
+using DeliveryTracking.Infrastructure.InternalServices;
 using DeliveryTracking.Infrastructure.Repositories;
 using DeliveryTracking.Services;
 using DeliveryTracking.Services.Abstraction;

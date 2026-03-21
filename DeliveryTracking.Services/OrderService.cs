@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using Shared.DataTransferObjects.OrderDTOs;
 using Shared.Messages;
 using Shared.Responses;
-
 namespace DeliveryTracking.Services
 {
     public class OrderService(
@@ -44,7 +43,6 @@ namespace DeliveryTracking.Services
                 Quantity = i.Quantity,
                 UnitPrice = i.UnitPrice,
                 TotalPrice = i.Quantity * i.UnitPrice,
-                CreatedAt = DateTime.UtcNow
             }).ToList();
 
             var order = new Order
@@ -55,7 +53,6 @@ namespace DeliveryTracking.Services
                 DeliveryAddress = dto.DeliveryAddress,
                 Notes = dto.Notes,
                 TotalAmount = items.Sum(i => i.TotalPrice),
-                CreatedAt = DateTime.UtcNow,
                 Items = items
             };
 

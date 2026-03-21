@@ -4,7 +4,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeliveryTracking.Infrastructure.ExternalService
+namespace DeliveryTracking.Infrastructure.InternalServices
 {
     public class ConnectionMappingService : IConnectionMappingService
     {

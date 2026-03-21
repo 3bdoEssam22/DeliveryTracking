@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DeliveryTracking.Infrastructure.ExternalService
+namespace DeliveryTracking.Infrastructure.InternalServices
 {
     public class OrderNotificationService(
         IHubContext<OrderTrackingHub> _orderHub,

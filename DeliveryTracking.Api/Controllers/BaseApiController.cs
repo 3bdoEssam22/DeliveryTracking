@@ -21,6 +21,7 @@ namespace DeliveryTracking.Api.Controllers
                 StatusCodes.Status404NotFound => NotFound(response),
                 StatusCodes.Status409Conflict => Conflict(response),
                 StatusCodes.Status500InternalServerError => StatusCode(StatusCodes.Status500InternalServerError, response),
+                StatusCodes.Status201Created => StatusCode(StatusCodes.Status201Created, response),
                 _ => StatusCode(response.StatusCode, response)
             };
 

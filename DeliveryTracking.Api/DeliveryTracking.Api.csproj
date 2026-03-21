@@ -21,8 +21,4 @@
     <ProjectReference Include="..\DeliveryTracking.Services.Abstraction\DeliveryTracking.Services.Abstraction.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

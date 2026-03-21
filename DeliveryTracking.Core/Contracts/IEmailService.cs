@@ -1,9 +1,6 @@
 ﻿using Shared.Messages;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace DeliveryTracking.Services.Abstraction
+namespace DeliveryTracking.Core.Contracts
 {
     public interface IEmailService
     {

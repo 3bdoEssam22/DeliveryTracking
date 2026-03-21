@@ -1,4 +1,4 @@
-﻿using DeliveryTracking.Core.Entities.SecurityModule;
+﻿using DeliveryTracking.Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -7,13 +7,12 @@ using System.Text;
 
 namespace DeliveryTracking.Infrastructure.Data.Configurations
 {
-    public class IdentityConfigurations : IEntityTypeConfiguration<DeliveryTrackingUser>
+    internal class BaseConfiguration<TEntity, TKey> : IEntityTypeConfiguration<TEntity> where TEntity : BaseEntity<TKey>
     {
-        public void Configure(EntityTypeBuilder<DeliveryTrackingUser> builder)
+        public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
-            builder.ToTable("Users");
-            builder.Property(p => p.FullName).IsRequired().HasMaxLength(100);
             builder.Property(p => p.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
+
         }
     }
 }

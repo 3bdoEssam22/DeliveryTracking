@@ -1,12 +1,15 @@
+using DeliveryTracking.Api.Extensions;
 using DeliveryTracking.Core.Contracts;
 using DeliveryTracking.Core.Entities.SecurityModule;
-using DeliveryTracking.Api.Extensions;
 using DeliveryTracking.Infrastructure.Data.Contexts;
 using DeliveryTracking.Infrastructure.Data.DataSeed;
 using DeliveryTracking.Infrastructure.ExternalService;
+using DeliveryTracking.Infrastructure.Hubs;
+using DeliveryTracking.Infrastructure.InternalServices;
 using DeliveryTracking.Infrastructure.Repositories;
 using DeliveryTracking.Services;
 using DeliveryTracking.Services.Abstraction;
+using DeliveryTracking.Services.Profiles;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +34,7 @@ namespace DeliveryTracking.Api
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",
-                    Type =SecuritySchemeType.ApiKey,
+                    Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer",
                     BearerFormat = "JWT",
                     In = ParameterLocation.Header,
@@ -81,6 +84,20 @@ namespace DeliveryTracking.Api
                       ValidAudience = builder.Configuration["JwtOptions:Audience"],
                       IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtOptions:SecretKey"]!))
                   };
+                  options.Events = new JwtBearerEvents
+                  {
+                      OnMessageReceived = context =>
+                      {
+                          var path = context.HttpContext.Request.Path;
+                          if (!path.StartsWithSegments("/hubs"))
+                              return Task.CompletedTask;
+
+                          var token = context.Request.Query["access_token"];
+                          if (!string.IsNullOrEmpty(token))
+                              context.Token = token;
+                          return Task.CompletedTask;
+                      }
+                  };
               }
               );
 
@@ -93,8 +110,14 @@ namespace DeliveryTracking.Api
             builder.Services.Configure<EmailSettings>(
                 builder.Configuration.GetSection("EmailSettings"));
             builder.Services.AddTransient<IEmailService, EmailService>();
+            builder.Services.AddSignalR();
+            builder.Services.AddScoped<IOrderService, OrderService>();
+            builder.Services.AddScoped<IOrderNotificationService, OrderNotificationService>();
+            builder.Services.AddSingleton<IConnectionMappingService, ConnectionMappingService>();
 
+            builder.Services.AddAutoMapper(p => p.AddProfile<OrderMappingProfile>(), typeof(ServicesAssemblyReference).Assembly);
 
+            builder.Services.AddAuthorization();
             #endregion
 
             var app = builder.Build();
@@ -112,7 +135,11 @@ namespace DeliveryTracking.Api
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.MapHub<NotificationHub>("/hubs/notification");
+            app.MapHub<OrderTrackingHub>("/hubs/order-tracking");
+
             app.MapControllers();
+
 
             app.Run();
         }

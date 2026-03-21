@@ -1,4 +1,4 @@
-﻿using DeliveryTracking.Core.Contracts;
+using DeliveryTracking.Core.Contracts;
 using DeliveryTracking.Core.Entities;
 using DeliveryTracking.Infrastructure.Data.Contexts;
 using System;
@@ -30,5 +30,9 @@ namespace DeliveryTracking.Infrastructure.Repositories
         }
 
         public async Task<int> SaveChangesAsync() => await _dbContext.SaveChangesAsync();
+
+        public void Dispose() => _dbContext.Dispose();
+
+        public async ValueTask DisposeAsync() => await _dbContext.DisposeAsync();
     }
 }
